@@ -9,14 +9,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo '🔨 Building Docker image...'
+                echo 'Building Docker image...'
                 sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
         stage('Test') {
             steps {
-                echo '🧪 Running unit tests...'
+                echo 'Running unit tests...'
                 sh '''
                 pip install pytest
                  export PYTHONPATH=.
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Code Quality') {
             steps {
-                echo '🧹 Running Pylint...'
+                echo 'Running Pylint...'
                 sh '''
                 pip install pylint
                 pylint app.py || true
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Security Scan') {
             steps {
-                echo '🔒 Running Bandit scan...'
+                echo 'Running Bandit scan...'
                 sh '''
                 pip install bandit
                 bandit -r . -x venv || true
@@ -47,7 +47,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo '🚀 Deploying Docker container...'
+                echo 'Deploying Docker container...'
                 sh '''
                 docker stop $CONTAINER_NAME || true
                 docker rm $CONTAINER_NAME || true
