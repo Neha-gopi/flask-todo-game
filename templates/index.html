@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎮 To-Do Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #fceabb, #f8b500);
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        li {
+            background: white;
+            margin: 10px auto;
+            padding: 10px;
+            width: 60%;
+            border-radius: 8px;
+            font-size: 1.2em;
+        }
+        .done {
+            text-decoration: line-through;
+            color: green;
+        }
+        .score {
+            font-size: 1.2em;
+            background-color: #ffffff66;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 To-Do Quest</h1>
+    <div class="score">Completed Tasks: {{ tasks|selectattr('done')|list|length }}</div>
+
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter a new quest..." required>
+        <button type="submit">➕ Add</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li class="{{ 'done' if task.done }}">
+                {{ task.task }}
+                {% if not task.done %}
+                    <a href="/complete/{{ loop.index0 }}"><button>Complete</button></a>
+                {% else %}
+                    🎉 Well done!
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <br><br>
+    <a href="/reset"><button>🔄 Reset Game</button></a>
+</body>
+</html>
