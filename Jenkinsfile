@@ -19,7 +19,7 @@ pipeline {
                 echo '🧪 Running unit tests...'
                 sh '''
                 pip install pytest
-                pytest tests/
+                PYTHONPATH=$PYTHONPATH:. pytest tests/
                 '''
             }
         }
