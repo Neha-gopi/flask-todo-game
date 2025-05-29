@@ -39,7 +39,7 @@ pipeline {
                 echo '🔒 Running Bandit scan...'
                 sh '''
                 pip install bandit
-                bandit -r . || true
+                bandit -r . -x venv || true
                 '''
             }
         }
