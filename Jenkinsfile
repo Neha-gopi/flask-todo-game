@@ -4,6 +4,8 @@ pipeline {
     environment {
         IMAGE_NAME = "flask-todo-game"
         CONTAINER_NAME = "todo-container"
+        HOST_PORT = "15001"   
+        CONTAINER_PORT = "5050"
     }
 
     stages {
@@ -48,10 +50,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '🚀 Deploying Docker container...'
-                sh '''
+                sh 
+                '''
                 docker stop $CONTAINER_NAME || true
                 docker rm $CONTAINER_NAME || true
-                docker run -d -p 15000:5050 --name $CONTAINER_NAME $IMAGE_NAME
+                docker run -d -p $HOST_PORT:$CONTAINER_PORT --name $CONTAINER_NAME $IMAGE_NAME
                 '''
             }
         }
