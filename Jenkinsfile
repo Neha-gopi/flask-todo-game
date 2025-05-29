@@ -19,7 +19,8 @@ pipeline {
                 echo '🧪 Running unit tests...'
                 sh '''
                 pip install pytest
-                PYTHONPATH=. pytest tests/
+                 export PYTHONPATH=.
+                 pytest tests/
                 '''
             }
         }
